@@ -22,7 +22,7 @@ export const modals = () => {
           e.preventDefault();
         }
 
-        windows.forEach((window: any) => {
+        windows.forEach((window: HTMLElement) => {
           window.style.display = "none";
         });
 
@@ -40,7 +40,7 @@ export const modals = () => {
     });
 
     const closeModal = () => {
-      windows.forEach((window: any) => {
+      windows.forEach((window: HTMLElement) => {
         window.style.display = "none";
       });
       modal.style.display = "none";
@@ -52,14 +52,14 @@ export const modals = () => {
       closeModal();
     });
 
-    modal.addEventListener("click", (e: any) => {
+    modal.addEventListener("click", (e:any) => {
       if (e.target === modal && triggerCloseClickOverlay) {
         closeModal();
       }
     });
   };
 
-  const showModalByTime = (selector: any, time: number) => {
+  const showModalByTime = (selector: string, time: number) => {
     setTimeout(() => {
       let display;
       document.querySelectorAll("[data-modal]").forEach((modal) => {
@@ -69,7 +69,7 @@ export const modals = () => {
       });
 
       if (!display) {
-        document.querySelector(selector).style.display = "block";
+        (document.querySelector(selector) as HTMLElement).style.display = "block";
         document.body.style.overflow = "hidden";
       }
     }, time);
