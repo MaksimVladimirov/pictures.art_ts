@@ -1,14 +1,15 @@
 export const modals = () => {
+  let btnPressed = false;
   const bindModal = ({
     triggerSelector,
     triggerModalSelector,
     triggerCloseSelector,
-    triggerCloseClickOverlay,
+    triggerDestroy,
   }: {
     triggerSelector: string;
     triggerModalSelector: string;
     triggerCloseSelector: string;
-    triggerCloseClickOverlay: boolean;
+    triggerDestroy: boolean;
   }) => {
     const triggers = document.querySelectorAll(triggerSelector);
     const modal = document.querySelector<HTMLElement>(triggerModalSelector);
@@ -22,8 +23,15 @@ export const modals = () => {
           e.preventDefault();
         }
 
+        btnPressed = true;
+
+        if (triggerDestroy) {
+          trigger.remove();
+        }
+
         windows.forEach((window: HTMLElement) => {
           window.style.display = "none";
+          window.classList.add("animated", "fadeIn");
         });
 
         modal.style.display = "block";
@@ -52,8 +60,8 @@ export const modals = () => {
       closeModal();
     });
 
-    modal.addEventListener("click", (e:any) => {
-      if (e.target === modal && triggerCloseClickOverlay) {
+    modal.addEventListener("click", (e: any) => {
+      if (e.target === modal) {
         closeModal();
       }
     });
@@ -69,8 +77,11 @@ export const modals = () => {
       });
 
       if (!display) {
-        (document.querySelector(selector) as HTMLElement).style.display = "block";
+        (document.querySelector(selector) as HTMLElement).style.display =
+          "block";
         document.body.style.overflow = "hidden";
+        const scroll = calcScroll();
+        document.body.style.marginRight = `${scroll}px`;
       }
     }, time);
   };
@@ -90,18 +101,41 @@ export const modals = () => {
     return scrollWidth;
   };
 
+  const openByScroll = (selector: string) => {
+    window.addEventListener("scroll", () => {
+      const scrollHeight = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight
+      );
+      if (
+        !btnPressed &&
+        window.pageYOffset + document.documentElement.clientHeight >=
+          document.documentElement.scrollHeight
+      ) {
+        (document.querySelector(selector) as HTMLElement).click();
+      }
+    });
+  };
+
   bindModal({
     triggerSelector: ".button-design",
     triggerModalSelector: ".popup-design",
     triggerCloseSelector: ".popup-design .popup-close",
-    triggerCloseClickOverlay: false,
+    triggerDestroy: false,
   });
   bindModal({
     triggerSelector: ".button-consultation",
     triggerModalSelector: ".popup-consultation",
     triggerCloseSelector: ".popup-consultation .popup-close",
-    triggerCloseClickOverlay: false,
+    triggerDestroy: false,
   });
+  bindModal({
+    triggerSelector: ".fixed-gift",
+    triggerModalSelector: ".popup-gift",
+    triggerCloseSelector: ".popup-gift .popup-close",
+    triggerDestroy: true,
+  });
+  openByScroll(".fixed-gift");
 
-  showModalByTime(".popup-consultation", 60000);
+  // showModalByTime(".popup-consultation", 6000);
 };
