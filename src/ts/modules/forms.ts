@@ -2,7 +2,7 @@ export const forms = () => {
   const forms = document.querySelectorAll("form");
   const inputs = document.querySelectorAll("input");
   const upload = document.querySelectorAll('[name="upload"]');
-  
+
   const message = {
     loading: "Загрузка...",
     success: "Спасибо! Скоро мы с вами свяжемся",
@@ -35,18 +35,19 @@ export const forms = () => {
     });
   };
 
-  upload.forEach((item: any,) => {
+  upload.forEach((item: any ) => {
     item.addEventListener("input", () => {
-      let dots;
-      const array = item.files[0].name.split(".");
-      array[0].length > 6 ? (dots = "...") : (dots = ".");
-      const name = array[0].substring(0, 5) + dots + array[1];
+      const file = item.files[0];
+      const fileName = file.name.split(".")[0];
+      const fileType = file.name.split(".")[1];
+      const dots = fileName.length > 6 ? "..." : ".";
+      const name = `${fileName.substring(0, 6)}${dots}${fileType}`;
       item.previousElementSibling.textContent = name;
     });
   });
 
   forms.forEach((form) => {
-    form.addEventListener("submit", (e: any) => {
+    form.addEventListener("submit", (e: Event) => {
       e.preventDefault();
 
       const statusMessage = document.createElement("div");
@@ -68,8 +69,7 @@ export const forms = () => {
       statusMessage.appendChild(textMessage);
 
       const formData: any = new FormData(form);
-      let api;
-      form.closest(".popup-design") || form.classList.contains("calc_form") ? (api = path.designer) : (api = path.question);
+      const api = form.closest(".popup-design") || form.classList.contains("calc_form") ? path.designer : path.question;
       console.log(api);
 
       postData(api, formData)
