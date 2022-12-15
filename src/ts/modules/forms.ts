@@ -35,7 +35,7 @@ export const forms = () => {
     });
   };
 
-  upload.forEach((item: any ) => {
+  upload.forEach((item: any) => {
     item.addEventListener("input", () => {
       const file = item.files[0];
       const fileName = file.name.split(".")[0];
