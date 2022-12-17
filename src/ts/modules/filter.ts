@@ -67,7 +67,7 @@ export const filter = () => {
   });
 
   menu.addEventListener("click", (e: any) => {
-    let target = e.target;
+   const target = e.target;
 
     if (target && target.tagName == "LI") {
       items.forEach((btn) => btn.classList.remove("active"));

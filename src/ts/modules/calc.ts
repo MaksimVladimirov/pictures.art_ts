@@ -17,10 +17,10 @@ export const calc = ({
   const promocodeBlock = document.querySelector<HTMLInputElement>(promocode);
   const resultBlock = document.querySelector(result);
 
-  let sum = 0;
+  
 
   const calcFunc = () => {
-    sum = Math.round(
+   const sum = Math.round(
       +sizeBlock.value * +materialBlock.value + +optionsBlock.value
     );
 
