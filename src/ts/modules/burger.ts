@@ -3,13 +3,10 @@ export const burger = (menuSelector: string, burgerSelector: string) => {
   const burgerElem = document.querySelector(burgerSelector);
 
   menuElem.style.display = "none";
+  const windowStyle = menuElem.style.display == "none" && window.screen.availWidth < 993;
 
   burgerElem.addEventListener("click", () => {
-    if (menuElem.style.display == "none" && window.screen.availWidth < 993) {
-      menuElem.style.display = "block";
-    } else {
-      menuElem.style.display == "none";
-    }
+    menuElem.style.display = windowStyle ? "block" :  "none";
   });
 
   window.addEventListener("resize", () => {
