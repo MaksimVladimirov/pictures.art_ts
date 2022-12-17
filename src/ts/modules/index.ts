@@ -6,3 +6,5 @@ export { checkTextInput } from "./checkTextInputs";
 export { showMoreStyles } from "./showMoreStyles";
 export { postData } from "../services/requests";
 export { getResource } from "../services/requests";
+export { calc } from "./calc";
+export { filter } from "./filter";

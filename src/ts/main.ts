@@ -5,6 +5,8 @@ import {
   mask,
   checkTextInput,
   showMoreStyles,
+  calc,
+  filter,
 } from "./modules";
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -28,4 +30,12 @@ window.addEventListener("DOMContentLoaded", () => {
   checkTextInput('[name="name"]');
   checkTextInput('[name="message"]');
   showMoreStyles(".button-styles", "#styles .row");
+  calc({
+    size: "#size",
+    material: "#material",
+    options: "#options",
+    promocode: ".promocode",
+    result: ".calc-price",
+  });
+  filter();
 });
