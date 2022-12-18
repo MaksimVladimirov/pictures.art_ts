@@ -10,3 +10,5 @@ export { calc } from "./calc";
 export { filter } from "./filter";
 export { accordion } from "./accordion";
 export { burger } from "./burger";
+export { scrolling } from "./scrolling";
+export { drop } from "./drop";
