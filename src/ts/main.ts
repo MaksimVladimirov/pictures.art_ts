@@ -7,6 +7,8 @@ import {
   showMoreStyles,
   calc,
   filter,
+  accordion,
+  burger,
 } from "./modules";
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -38,4 +40,6 @@ window.addEventListener("DOMContentLoaded", () => {
     result: ".calc-price",
   });
   filter();
+  accordion(".accordion-heading");
+  burger(".burger-menu", ".burger");
 });
